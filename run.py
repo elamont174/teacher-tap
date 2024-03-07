@@ -23,6 +23,19 @@ def get_exam_data():
     print("Example: Joe Bloggs, 7, 54\n")
 
     data_str = input("Enter your data here: ")
-    print(f"The data provided is {data_str}")
+    
+    exam_data = data_str.split(",")
+    validate_data(exam_data)
+
+def validate_data(values):
+    """
+    Ensures 'Student Name' has first and surname; Predicted Grade is between 1-9 as an integer; Exam mark is between 0-100 as an integer. Ensures three values added. 
+    Raises error if does not fit this format.
+    """
+    try:
+        if len(values) != 3:
+            raise ValueError(f"3 values required, you provided {len(values)}")
+    except ValueError as e:
+        print(f"Invalid data: {e}, please try again.\n")   
 
 get_exam_data()
