@@ -16,7 +16,8 @@ SHEET = GSPREAD_CLIENT.open('teacher-tap')
 
 def get_exam_data():
     """
-    Get exam result data from user
+    Get exam result data from user.
+    Run a while loop to collect a valid string of data from the user via the terminal. Loop will continually request data until it is valid.
     """
     while True:
         print("Please enter exam result and predicted grade for each student.")
@@ -26,7 +27,7 @@ def get_exam_data():
         data_str = input("Enter your data here: ")
         
         exam_data = data_str.split(",")
-        validate_data(exam_data)
+        #validate_data(exam_data)
 
         if validate_data(exam_data):
             print("Data is valid")
@@ -34,7 +35,7 @@ def get_exam_data():
 
     return exam_data
 
-data = get_exam_data()
+#data = get_exam_data()
 
 def validate_data(values):
     """
@@ -51,4 +52,15 @@ def validate_data(values):
 
     return True   
 
-get_exam_data()
+def update_data_worksheet(data):
+    """
+    Update exam data worksheet
+    """
+    print("Updating exam worksheet...\n")
+    exam_worksheet = SHEET.worksheet("datasheet")
+    exam_worksheet.append_row(data)
+    print("Exam data worksheet updated successfully")
+
+data = get_exam_data()
+exam_data = [x for x in data]
+update_data_worksheet(exam_data)
