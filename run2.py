@@ -22,23 +22,17 @@ def get_exam_data():
     Get exam result data from user.
     Run a while loop to collect a valid string of data from the user via the terminal. Loop will continually request data until it is valid.
     """
-    
-    print(f"""
+    while True:
+        print(f"""
     Please enter predicted grade and exam score for each student. 
 Data should be in the format 'Student Name, Predicted Grade, Exam Score'.
                     Example: Joe Bloggs, 7, 54
 
         """)
-    name_str = False
-    while name_str == False:
-        name_str = input("Enter your name here: ").strip()
-        try:
-            validate_data(exam_data, "name"):
-            print("Data is valid")
-            name_str =True
-        except:
 
-        # exam_data = data_str.split(",")
+        data_str = input("Enter your data here: ")
+        
+        exam_data = data_str.split(",")
 
         if validate_data(exam_data):
             print("Data is valid")
@@ -47,7 +41,7 @@ Data should be in the format 'Student Name, Predicted Grade, Exam Score'.
     return exam_data
 
 
-def validate_data(values, type):
+def validate_data(values):
     """
     Ensures 'Student Name' has first and surname; 
     Predicted Grade is between 1-9 as an integer; Exam mark is between 0-100 as an integer. Ensures three values added. 
@@ -55,16 +49,7 @@ def validate_data(values, type):
     """
 
     # How to validate a string and 2 integers in one list? 
-    if type == "name":
-        try:
-            name_list = values.split(" ")
-            # ["jsdfs", "sdfsdf"]
-            if len(name_list) == 2:
-                # proceede
-                pass
-            else:
-                # raise
-                break
+
     try:
         if len(values) != 3:
             raise ValueError(f"3 values required, you provided {len(values)}")
@@ -118,16 +103,14 @@ def calculate_on_target():
 # on_target = calculate_on_target()
 
 def generate_intervention_strategy():
-    intervention_strategy = ""
-    if on_target == "Above":
-        intervention_strategy = "Positive email"
-    if calculate_on_target == "On":
-        intervention_strategy = "Verbal praise"
-    if calculate_on_target == "Below":
-        intervention_strategy = "Parental phonecall"
-    return intervention_strategy
+        if on_target == "Above":
+            intervention_strategy = "Positive email"
+        if calculate_on_target == "On":
+            intervention_strategy = "Verbal praise"
+        if calculate_on_target == "Below":
+            intervention_strategy = "Parental phonecall"
 
-# intervention_strategy = generate_intervention_strategy()
+intervention_strategy = generate_intervention_strategy()
 
 def update_data_worksheet(data):
     """
