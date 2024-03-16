@@ -52,19 +52,10 @@ def validate_data(values):
 
     return True   
 
-def update_data_worksheet(data):
+def calculate_exam_grade():
     """
-    Update exam data worksheet
-    """
-    print("Updating exam worksheet...\n")
-    exam_worksheet = SHEET.worksheet("datasheet")
-    exam_worksheet.append_row(data)
-    print("Exam data worksheet updated successfully")
-
-"""def calculate_exam_grade():
-    ""
     Calculates the exam grade from the exam mark
-    ""
+    """
     print("Calculating exam grade...\n")
     datasheet = SHEET.worksheet("datasheet").get_all_values()
     exam_score = datasheet[-1, 2]
@@ -72,38 +63,55 @@ def update_data_worksheet(data):
 #How to get exam score by itself? Row is -1, column is 2
 
     if exam_score >= 80:
-        then exam_grade = 9
+        then exam_grade = int(9)
     elif exam_score >= 70:
-        then exam_grade = 8
+        then exam_grade = int(8)
     elif exam_score >= 60:
-        then exam_grade = 7
+        then exam_grade = int(7)
     elif exam_score >= 50:
-        then exam_grade = 6
+        then exam_grade = int(6)
     elif exam_score >= 40:
-        then exam_grade = 5
+        then exam_grade = int(5)
     elif exam_score >= 30:
-        then exam_grade = 4
+        then exam_grade = int(4)
     elif exam_score < 40:
-        then exam_grade = 0"""
+        then exam_grade = int(3)
+        print(U)
 
-    
-  """ def calculate on_target():
-      if exam_grade > predicted_grade:
+#How to recognise predicted grade?
+
+def calculate_on_target():
+      if exam_grade > int(predicted_grade):
         then "Above"
-      if exam_grade = predicted_grade:
+      if exam_grade = int(predicted_grade):
         then "On"
-      if exam_grade < predicted_grade:
-        then "Below"  """
+      if exam_grade < int(predicted_grade):
+        then "Below"
 
-""" def generate_intervention_strategy():
-        if "Above
+def generate_intervention_strategy():
+        if "Above"
             then print ("Positive email")
         if "On"
             then print ("Verbal praise")
         if "Below"
-            then print ("Parental phonecall") """
+            then print ("Parental phonecall") 
 
 #How to mix strings and integers in a list?  
+
+def update_data_worksheet(data):
+    """
+    Update exam data worksheet
+    """
+    print("Updating exam worksheet...\n")
+    exam_grade = calculate_exam_grade()
+    data.append(exam_grade)
+    on_target = calculate_on_target()
+    data.append(on_target)
+    intervention_strategy = generate_intervention_strategy()
+    data.append(intervention_strategy)
+    exam_worksheet = SHEET.worksheet("datasheet")
+    exam_worksheet.append_row(data)
+    print("Exam data worksheet updated successfully")
 
 def main():
     """
@@ -112,7 +120,6 @@ def main():
     data = get_exam_data()
     exam_data = [x for x in data]
     update_data_worksheet(exam_data)
-    #calculate_exam_grade(exam_score)
 
 print("Welcome to Teacher Tap!")
 main()
