@@ -1,5 +1,6 @@
 import gspread
 from google.oauth2.service_account import Credentials
+from pprint import pprint
 
 #scope taken from Code Institute Love Sandwiches project
 
@@ -27,7 +28,6 @@ def get_exam_data():
         data_str = input("Enter your data here: ")
         
         exam_data = data_str.split(",")
-        #validate_data(exam_data)
 
         if validate_data(exam_data):
             print("Data is valid")
@@ -35,14 +35,14 @@ def get_exam_data():
 
     return exam_data
 
-#data = get_exam_data()
-
 def validate_data(values):
     """
     Ensures 'Student Name' has first and surname; Predicted Grade is between 1-9 as an integer; Exam mark is between 0-100 as an integer. Ensures three values added. 
     Raises error if does not fit this format.
     """
+
     # How to validate a string and 2 integers in one list? 
+
     try:
         if len(values) != 3:
             raise ValueError(f"3 values required, you provided {len(values)}")
@@ -61,6 +61,58 @@ def update_data_worksheet(data):
     exam_worksheet.append_row(data)
     print("Exam data worksheet updated successfully")
 
-data = get_exam_data()
-exam_data = [x for x in data]
-update_data_worksheet(exam_data)
+"""def calculate_exam_grade():
+    ""
+    Calculates the exam grade from the exam mark
+    ""
+    print("Calculating exam grade...\n")
+    datasheet = SHEET.worksheet("datasheet").get_all_values()
+    exam_score = datasheet[-1, 2]
+
+#How to get exam score by itself? Row is -1, column is 2
+
+    if exam_score >= 80:
+        then exam_grade = 9
+    elif exam_score >= 70:
+        then exam_grade = 8
+    elif exam_score >= 60:
+        then exam_grade = 7
+    elif exam_score >= 50:
+        then exam_grade = 6
+    elif exam_score >= 40:
+        then exam_grade = 5
+    elif exam_score >= 30:
+        then exam_grade = 4
+    elif exam_score < 40:
+        then exam_grade = 0"""
+
+    
+  """ def calculate on_target():
+      if exam_grade > predicted_grade:
+        then "Above"
+      if exam_grade = predicted_grade:
+        then "On"
+      if exam_grade < predicted_grade:
+        then "Below"  """
+
+""" def generate_intervention_strategy():
+        if "Above
+            then print ("Positive email")
+        if "On"
+            then print ("Verbal praise")
+        if "Below"
+            then print ("Parental phonecall") """
+
+#How to mix strings and integers in a list?  
+
+def main():
+    """
+    Run all program functions
+    """
+    data = get_exam_data()
+    exam_data = [x for x in data]
+    update_data_worksheet(exam_data)
+    #calculate_exam_grade(exam_score)
+
+print("Welcome to Teacher Tap!")
+main()
