@@ -23,8 +23,8 @@ def get_exam_data():
     Run a while loop to collect a valid string of data from the user via the terminal. Loop will continually request data until it is valid.
     """
     while True:
-        print("Please enter exam result and predicted grade for each student.")
-        print("Data should be in the format 'Student Name, Predicted Grade, Exam Mark'.")
+        print("Please enter predicted grade and exam score for each student.")
+        print("Data should be in the format 'Student Name, Predicted Grade, Exam Score'.")
         print("Example: Joe Bloggs, 7, 54\n")
 
         data_str = input("Enter your data here: ")
@@ -54,47 +54,58 @@ def validate_data(values):
 
     return True   
 
+data = get_exam_data()
+
 def calculate_exam_grade():
     """
     Calculates the exam grade from the exam mark
     """
     print("Calculating exam grade...\n")
-    datasheet = SHEET.worksheet("datasheet").get_all_values()
-    exam_score = data[2]
+    #datasheet = SHEET.worksheet("datasheet").get_all_values()
+    exam_score = int(data[2])
 
     if exam_score >= 80:
-        then exam_grade = int(9)
-    elif exam_score >= 70:
-        then exam_grade = int(8)
-    elif exam_score >= 60:
-        then exam_grade = int(7)
-    elif exam_score >= 50:
-        then exam_grade = int(6)
-    elif exam_score >= 40:
-        then exam_grade = int(5)
-    elif exam_score >= 30:
-        then exam_grade = int(4)
-    elif exam_score < 40:
-        then exam_grade = int(3)
+        exam_grade = 9
+    if exam_score >= 70:
+        exam_grade = 8
+    if exam_score >= 60:
+        exam_grade = 7
+    if exam_score >= 50:
+        exam_grade = 6
+    if exam_score >= 40:
+        exam_grade = 5
+    if exam_score >= 30:
+        exam_grade = 4
+    if exam_score < 40:
+        exam_grade = 3
         print(U)
+    
+    return int(exam_grade)
 
-predicted_grade = data[1]
+predicted_grade = int(data[1])
+exam_grade = calculate_exam_grade()
 
 def calculate_on_target():
-      if exam_grade > int(predicted_grade):
-        then "Above"
-      if exam_grade = int(predicted_grade):
-        then "On"
-      if exam_grade < int(predicted_grade):
-        then "Below"
+      if exam_grade > predicted_grade:
+        on_target = "Above"
+      if exam_grade == predicted_grade:
+        on_target = "On"
+      if exam_grade < predicted_grade:
+        on_target = "Below"
+
+      return on_target
+
+on_target = calculate_on_target()
 
 def generate_intervention_strategy():
-        if calculate_on_target "Above"
-            then print ("Positive email")
-        if calculate_on_target "On"
-            then print ("Verbal praise")
-        if calculate_on_target "Below"
-            then print ("Parental phonecall") 
+         if on_target == "Above":
+             intervention_strategy == "Positive email"
+         if calculate_on_target == "On":
+             intervention_strategy == "Verbal praise"
+         if calculate_on_target == "Below":
+             intervention_strategy == "Parental phonecall"
+
+intervention_strategy = generate_intervention_strategy()
 
 def update_data_worksheet(data):
     """
@@ -111,11 +122,11 @@ def update_data_worksheet(data):
     exam_worksheet.append_row(data)
     print("Exam data worksheet updated successfully")
 
-def update_positive_email_worksheet("data"):
+def update_positive_email_worksheet(data):
     """
     Updates the postive email worksheet
     """
-    if data[5] = "Positive email":
+    if data[5] == "Positive email":
         exam_worksheet = SHEET.worksheet("positive-email")
         name = data[0]
         exam_worksheet.append_row(name,f"Well done to {name} for achieving {exam_score} marks in their recent Science exam! This is a grade {exam_grade} which is above their predicted target! Congratulations!")
