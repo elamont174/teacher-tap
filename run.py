@@ -64,21 +64,20 @@ def calculate_exam_grade():
     #datasheet = SHEET.worksheet("datasheet").get_all_values()
     exam_score = int(data[2])
 
-    if exam_score >= 80:
-        exam_grade = 9
-    if exam_score >= 70:
-        exam_grade = 8
+    if exam_score < 30:
+        exam_grade = 3
+    if exam_score >= 30:
+        exam_grade = 4 
+    if exam_score >= 40:
+        exam_grade = 5 
+    if exam_score >= 50:
+        exam_grade = 6    
     if exam_score >= 60:
         exam_grade = 7
-    if exam_score >= 50:
-        exam_grade = 6
-    if exam_score >= 40:
-        exam_grade = 5
-    if exam_score >= 30:
-        exam_grade = 4
-    if exam_score < 40:
-        exam_grade = 3
-        print(U)
+    if exam_score >= 70:
+        exam_grade = 8   
+    if exam_score >= 80:
+        exam_grade = 9 
     
     return int(exam_grade)
 
@@ -99,11 +98,11 @@ on_target = calculate_on_target()
 
 def generate_intervention_strategy():
          if on_target == "Above":
-             intervention_strategy == "Positive email"
+             intervention_strategy = "Positive email"
          if calculate_on_target == "On":
-             intervention_strategy == "Verbal praise"
+             intervention_strategy = "Verbal praise"
          if calculate_on_target == "Below":
-             intervention_strategy == "Parental phonecall"
+             intervention_strategy = "Parental phonecall"
 
 intervention_strategy = generate_intervention_strategy()
 
