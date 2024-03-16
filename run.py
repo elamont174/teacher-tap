@@ -1,6 +1,8 @@
 import gspread
 from google.oauth2.service_account import Credentials
 from pprint import pprint
+from tabulate import tabulate
+
 
 #scope taken from Code Institute Love Sandwiches project
 
@@ -58,9 +60,7 @@ def calculate_exam_grade():
     """
     print("Calculating exam grade...\n")
     datasheet = SHEET.worksheet("datasheet").get_all_values()
-    exam_score = datasheet[-1, 2]
-
-#How to get exam score by itself? Row is -1, column is 2
+    exam_score = data[2]
 
     if exam_score >= 80:
         then exam_grade = int(9)
@@ -78,7 +78,7 @@ def calculate_exam_grade():
         then exam_grade = int(3)
         print(U)
 
-#How to recognise predicted grade?
+predicted_grade = data[1]
 
 def calculate_on_target():
       if exam_grade > int(predicted_grade):
@@ -89,14 +89,12 @@ def calculate_on_target():
         then "Below"
 
 def generate_intervention_strategy():
-        if "Above"
+        if calculate_on_target "Above"
             then print ("Positive email")
-        if "On"
+        if calculate_on_target "On"
             then print ("Verbal praise")
-        if "Below"
+        if calculate_on_target "Below"
             then print ("Parental phonecall") 
-
-#How to mix strings and integers in a list?  
 
 def update_data_worksheet(data):
     """
@@ -112,6 +110,16 @@ def update_data_worksheet(data):
     exam_worksheet = SHEET.worksheet("datasheet")
     exam_worksheet.append_row(data)
     print("Exam data worksheet updated successfully")
+
+def update_positive_email_worksheet("data"):
+    """
+    Updates the postive email worksheet
+    """
+    if data[5] = "Positive email":
+        exam_worksheet = SHEET.worksheet("positive-email")
+        name = data[0]
+        exam_worksheet.append_row(name,f"Well done to {name} for achieving {exam_score} marks in their recent Science exam! This is a grade {exam_grade} which is above their predicted target! Congratulations!")
+        print("Positive email worksheet updated successfully")
 
 def main():
     """
