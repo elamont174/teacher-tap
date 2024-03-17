@@ -31,16 +31,16 @@ def get_exam_data():
     while name_str == False:
         name_str = input("Enter name here: ").strip()
         try:
-            validate_data(exam_data, "name"):
+            validate_data(name_str, "name")
             print("Data is valid")
             name_str = True
         except ValueError as e:
-        print(f"Invalid data: {e}, ensure you enter a first name and surname, separated by a space.\n")
+            print(f"Invalid data: {e}, ensure you enter a first name and surname, separated by a space.\n")
         return False
 
-        if validate_data(exam_data):
+        """if validate_data(name_str):
             print("Data is valid")
-            break 
+            break """
 
     return name_list
 
@@ -49,14 +49,14 @@ def get_exam_data():
     while predicted_grade_raw == False:
         predicted_grade_raw = input("Student's predicted grade: ").strip()
         try:
-            if int(predicted_grade_raw) >= 1 and <= 9: 
-            print("Data is valid")
+            if int(predicted_grade_raw) >= 1 <= 9: 
+                print("Data is valid")
             predicted_grade_raw = True
         except ValueError as e:
-        print(f"Invalid data: {e}, enter an integer between 1-9\n")
+            print(f"Invalid data: {e}, enter an integer between 1-9\n")
         return False
 
-        if validate_data(exam_data):
+        if validate_data(predicted_grade_raw, number):
             print("Data is valid")
             break 
 
@@ -67,18 +67,22 @@ def get_exam_data():
     while exam_score_raw == False:
         exam_score_raw = input("Student's exam score out of 100: ").strip()
         try:
-            if int(exam_score_raw) >= 0 and <= 100: 
-            print("Data is valid")
+            if int(exam_score_raw) >= 0 <= 100: 
+                print("Data is valid")
             exam_score_raw = True
         except ValueError as e:
-        print(f"Invalid data: {e}, enter an integer between 0-100\n")
+            print(f"Invalid data: {e}, enter an integer between 0-100\n")
         return False
 
-        if validate_data(exam_data):
+        if validate_data(exam_score_raw, num):
             print("Data is valid")
             break 
 
     return exam_score
+
+    some_data = name_list + predicted_grade + exam_score
+    return some_data
+
 
 
 #Validates data as a string with 2 words, an integer between 1-9, an integer 
@@ -94,31 +98,44 @@ def validate_data(values, type):
     if type == "name":
         try:
             name_list = values.split(" ")
-            # ["jsdfs", "sdfsdf"]
             if len(name_list) == 2:
-                # proceede
                 pass
             else:
-                # raise
-                break
-    try:
+                raise ValueError(f"Ensure you enter a first name and surname, separated by a space.")
+        except ValueError as e:
+                print(f"Invalid data: {e}, please try again.\n")
+        return False
+            #break
+    
+    if type == int:
+        try:
+            name_list = values.split(" ")
+            if len(name_list) == 2:
+                pass
+            else:
+                raise ValueError(f"Ensure you enter a first name and surname, separated by a space.")
+        except ValueError as e:
+                print(f"Invalid data: {e}, please try again.\n")
+        return False
+
+    """try:
         if len(values) != 3:
             raise ValueError(f"3 values required, you provided {len(values)}")
     except ValueError as e:
         print(f"Invalid data: {e}, please try again.\n")
-        return False
+        return False"""
 
     return True   
 
 
 #Takes exam score and converts to an grade (integers)
-def calculate_exam_grade(some_data):
+def calculate_exam_grade(exam_score):
 
     """Calculates the exam grade from the exam mark"""
 
 
     print("Calculating exam grade...\n")
-    exam_score = int(some_data[2])
+    exam_score = int(data[2])
 
     if exam_score < 30:
         exam_grade = 3
@@ -174,13 +191,12 @@ def generate_intervention_strategy():
     return intervention_strategy
 
 
-def update_data_worksheet():
 #Concatenates "Name, Predicted Grade, Exam score, Exam grade, Target, 
 #Intervention strategy" into a list (using append)
 #Adds list to spreadsheet
 def update_data_worksheet(data):
 
-    """ Concatenates entered and calculateddata into a list and updates 
+    """ Concatenates entered and calculated data into a list and updates 
     exam data worksheet """
 
 
@@ -199,9 +215,10 @@ def update_data_worksheet(data):
 #If intervention strategy is "Positive email", adds name and message to 
 #separate tab of worksheet
 def update_positive_email_worksheet(data):
-    """
-    Updates the postive email worksheet
-    """
+
+    """ Updates the positive email worksheet """
+
+
     if data[5] == "Positive email":
         exam_worksheet = SHEET.worksheet("positive-email")
         name = data[0]
@@ -212,10 +229,18 @@ def update_positive_email_worksheet(data):
         print("Positive email worksheet updated successfully")
 
 
-def update_parental_phonecall_worksheet():
 #If intervention strategy is "Parental phonecall", adds name to separate tab of 
 #worksheet
+def update_parental_phonecall_worksheet():
 
+    """ Updates the positive email worksheet """
+
+
+    if data[5] == "Parental phonecall":
+        exam_worksheet = SHEET.worksheet("parent-call")
+        name = data[0]
+        exam_worksheet.append_row(name)
+        print("Parental call worksheet updated successfully")
 
 def main():
     
@@ -224,7 +249,7 @@ def main():
 
     print("Welcome to Teacher Tap!")
     data = get_exam_data()
-    validate_data()
+    validate_data(data, type)
     calculate_exam_grade(data)
     exam_grade = calculate_exam_grade()
     calculate_on_target(exam_grade)
