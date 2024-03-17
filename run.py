@@ -1,7 +1,5 @@
 import gspread
 from google.oauth2.service_account import Credentials
-from pprint import pprint
-from tabulate import tabulate
 
 
 #scope taken from Code Institute Love Sandwiches project
@@ -23,33 +21,64 @@ SHEET = GSPREAD_CLIENT.open('teacher-tap')
 #Enter student's exam score (must be an integer 1-100)
 def get_exam_data():
 
-    """ Get exam result data from user.
-    Run a while loop to collect a valid string of data from the user via the 
-    terminal. Loop will continually request data until it is valid."""
+    """ Get exam result data from user.Run a while loop to collect valid 
+    data from the user via the terminal. Loop will continually 
+    request data until it is valid."""
     
 
-    print(f"""
-    Please enter predicted grade and exam score for each student. 
-Data should be in the format 'Student Name, Predicted Grade, Exam Score'.
-                    Example: Joe Bloggs, 7, 54
-
-        """)
+    print(f"""Please enter student's first and surname:""")
     name_str = False
     while name_str == False:
-        name_str = input("Enter your name here: ").strip()
+        name_str = input("Enter name here: ").strip()
         try:
             validate_data(exam_data, "name"):
             print("Data is valid")
-            name_str =True
-        except:
-
-        # exam_data = data_str.split(",")
+            name_str = True
+        except ValueError as e:
+        print(f"Invalid data: {e}, ensure you enter a first name and surname, separated by a space.\n")
+        return False
 
         if validate_data(exam_data):
             print("Data is valid")
             break 
 
-    return exam_data
+    return name_list
+
+    print(f"""Please enter student's predicted grade:""")
+    predicted_grade_raw = False
+    while predicted_grade_raw == False:
+        predicted_grade_raw = input("Student's predicted grade: ").strip()
+        try:
+            if int(predicted_grade_raw) >= 1 and <= 9: 
+            print("Data is valid")
+            predicted_grade_raw = True
+        except ValueError as e:
+        print(f"Invalid data: {e}, enter an integer between 1-9\n")
+        return False
+
+        if validate_data(exam_data):
+            print("Data is valid")
+            break 
+
+    return predicted_grade
+
+    print(f"""Please enter student's exam score:""")
+    exam_score_raw = False
+    while exam_score_raw == False:
+        exam_score_raw = input("Student's exam score out of 100: ").strip()
+        try:
+            if int(exam_score_raw) >= 0 and <= 100: 
+            print("Data is valid")
+            exam_score_raw = True
+        except ValueError as e:
+        print(f"Invalid data: {e}, enter an integer between 0-100\n")
+        return False
+
+        if validate_data(exam_data):
+            print("Data is valid")
+            break 
+
+    return exam_score
 
 
 #Validates data as a string with 2 words, an integer between 1-9, an integer 
@@ -62,7 +91,6 @@ def validate_data(values, type):
     Raises error if does not fit this format."""
 
 
-    # How to validate a string and 2 integers in one list? 
     if type == "name":
         try:
             name_list = values.split(" ")
@@ -90,7 +118,6 @@ def calculate_exam_grade(some_data):
 
 
     print("Calculating exam grade...\n")
-    #datasheet = SHEET.worksheet("datasheet").get_all_values()
     exam_score = int(some_data[2])
 
     if exam_score < 30:
