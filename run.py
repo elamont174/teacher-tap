@@ -19,13 +19,12 @@ SHEET = GSPREAD_CLIENT.open('teacher-tap')
 #Enter name (First and Surname)
 #Enter student's predicted grade (must be an integer 1-9)
 #Enter student's exam score (must be an integer 1-100)
-def get_exam_data():
+def get_name_list():
 
     """ Get exam result data from user.Run a while loop to collect valid 
     data from the user via the terminal. Loop will continually 
     request data until it is valid."""
     
-
     print(f"""Please enter student's first and surname:""")
     name_str = False
     while name_str == False:
@@ -34,54 +33,44 @@ def get_exam_data():
             validate_data(name_str, "name")
             print("Data is valid")
             name_str = True
+            continue
         except ValueError as e:
-            print(f"Invalid data: {e}, ensure you enter a first name and surname, separated by a space.\n")
-        return False
+            print(f"Invalid data: {e}, ensure you enter a first name and surname, separated by a space\n")
+        return False  
+    return name_str
 
-        """if validate_data(name_str):
-            print("Data is valid")
-            break """
-
-    return name_list
-
-    print(f"""Please enter student's predicted grade:""")
-    predicted_grade_raw = False
-    while predicted_grade_raw == False:
-        predicted_grade_raw = input("Student's predicted grade: ").strip()
+def get_predicted_grade():
+    print(f"""Please enter student's predicted grade""")
+    predicted_grade = False
+    while predicted_grade == False:
+        predicted_grade = int(input("Student's predicted grade: ").strip())
         try:
-            if int(predicted_grade_raw) >= 1 <= 9: 
+            if predicted_grade >= 1 <= 9: 
                 print("Data is valid")
-            predicted_grade_raw = True
+            predicted_grade = True
+            continue
         except ValueError as e:
             print(f"Invalid data: {e}, enter an integer between 1-9\n")
         return False
-
-        if validate_data(predicted_grade_raw, number):
+        """if validate_data(predicted_grade_raw, number):
             print("Data is valid")
-            break 
-
+            break"""
     return predicted_grade
 
-    print(f"""Please enter student's exam score:""")
-    exam_score_raw = False
-    while exam_score_raw == False:
-        exam_score_raw = input("Student's exam score out of 100: ").strip()
+def get_exam_score():
+    print(f"""Please enter student's exam score""")
+    exam_score = False
+    while exam_score == False:
+        exam_score = int(input("Student's exam score out of 100: ").strip())
         try:
-            if int(exam_score_raw) >= 0 <= 100: 
+            if exam_score >= 0 <= 100: 
                 print("Data is valid")
-            exam_score_raw = True
+            exam_score = True
         except ValueError as e:
             print(f"Invalid data: {e}, enter an integer between 0-100\n")
         return False
-
-        if validate_data(exam_score_raw, num):
-            print("Data is valid")
-            break 
-
+        continue
     return exam_score
-
-    some_data = name_list + predicted_grade + exam_score
-    return some_data
 
 
 
@@ -105,7 +94,6 @@ def validate_data(values, type):
         except ValueError as e:
                 print(f"Invalid data: {e}, please try again.\n")
         return False
-            #break
     
     if type == int:
         try:
@@ -133,9 +121,8 @@ def calculate_exam_grade(exam_score):
 
     """Calculates the exam grade from the exam mark"""
 
-
     print("Calculating exam grade...\n")
-    exam_score = int(data[2])
+    #exam_score = some_data[2]
 
     if exam_score < 30:
         exam_grade = 3
@@ -157,7 +144,7 @@ def calculate_exam_grade(exam_score):
 
 #Takes exam grade, compares to predicted grade and 
 #calculates whether student is on/above/below target
-def calculate_on_target():
+def calculate_on_target(exam_grade, predicted_grade):
 
     """Compares the students exam grade with their predicted grade and 
     calculates whether the student is on/above/below target"""
@@ -174,7 +161,7 @@ def calculate_on_target():
 
 
 #Takes on/above/below target and generates an intervention strategy
-def generate_intervention_strategy():
+def generate_intervention_strategy(on_target):
 
     """ Generates intervention strategy based on whether student is 
     on/above/below target from a pre-determined list"""
@@ -201,12 +188,13 @@ def update_data_worksheet(data):
 
 
     print("Updating exam worksheet...\n")
-    exam_grade = calculate_exam_grade()
-    data.append(exam_grade)
-    on_target = calculate_on_target()
-    data.append(on_target)
-    intervention_strategy = generate_intervention_strategy()
-    data.append(intervention_strategy)
+    #data = name_str + int(predicted_grade) + int(exam_score) + int(exam_grade) + on_target + intervention_strategy
+    #exam_grade = calculate_exam_grade()
+    #data.append(exam_grade)
+    #on_target = calculate_on_target()
+    #data.append(on_target)
+    #intervention_strategy = generate_intervention_strategy()
+    #data.append(intervention_strategy)
     exam_worksheet = SHEET.worksheet("datasheet")
     exam_worksheet.append_row(data)
     print("Exam data worksheet updated successfully")
@@ -214,32 +202,35 @@ def update_data_worksheet(data):
 
 #If intervention strategy is "Positive email", adds name and message to 
 #separate tab of worksheet
-def update_positive_email_worksheet(data):
+def  update_positive_email_worksheet(name_str, exam_score, exam_grade, intervention_strategy):
 
     """ Updates the positive email worksheet """
 
 
-    if data[5] == "Positive email":
+    if intervention_strategy == "Positive email":
         exam_worksheet = SHEET.worksheet("positive-email")
-        name = data[0]
+        name = name_str
         exam_worksheet.append_row(
             name,
-            f"""Well done to {name} for achieving {exam_score} marks in their recent Science exam! This is a grade {exam_grade} which is above their predicted target! Congratulations!"""
+            f"""Well done to {name} for achieving {exam_score} marks in their 
+            recent Science exam! This is a grade {exam_grade} which is above 
+            their predicted target! Congratulations!"""
         )
         print("Positive email worksheet updated successfully")
 
 
 #If intervention strategy is "Parental phonecall", adds name to separate tab of 
 #worksheet
-def update_parental_phonecall_worksheet():
+def update_parental_phonecall_worksheet(name_str, intervention_strategy):
 
-    """ Updates the positive email worksheet """
+    """ Updates the parental phonecall worksheet """
 
 
-    if data[5] == "Parental phonecall":
+    if intervention_strategy == "Parental phonecall":
         exam_worksheet = SHEET.worksheet("parent-call")
-        name = data[0]
-        exam_worksheet.append_row(name)
+        name = str.split(name_str)
+        fname = name[0]
+        exam_worksheet.append_row(fname)
         print("Parental call worksheet updated successfully")
 
 def main():
@@ -248,19 +239,21 @@ def main():
 
 
     print("Welcome to Teacher Tap!")
-    data = get_exam_data()
-    validate_data(data, type)
-    calculate_exam_grade(data)
-    exam_grade = calculate_exam_grade()
-    calculate_on_target(exam_grade)
-    on_target = calculate_on_target()
-    generate_intervention_strategy(on_target)
-    intervention_strategy = generate_intervention_strategy()
-    update_data_worksheet()
-    update_positive_email_worksheet()
-    update_parental_phonecall_worksheet()
-    exam_data = [x for x in data]
-    update_data_worksheet(exam_data)
+    name_str = get_name_list()
+    predicted_grade = get_predicted_grade()
+    exam_score = int(get_exam_score())
+    #some_data = name_str + predicted_grade + exam_score
+    #calculate_exam_grade()
+    exam_grade = calculate_exam_grade(exam_score)
+    on_target = calculate_on_target(exam_grade, predicted_grade)
+    intervention_strategy = generate_intervention_strategy(on_target)
+    data = [(name_str), (int(predicted_grade)), (int(exam_score)), 
+    (int(exam_grade)), (on_target), (intervention_strategy)]
+    update_data_worksheet(data)
+    update_positive_email_worksheet(name_str, exam_score, exam_grade, intervention_strategy)
+    update_parental_phonecall_worksheet(name_str, intervention_strategy)
+    #exam_data = [x for x in data]
+    #update_data_worksheet(exam_data)
 
 if __name__ == "__main__":
     main()
