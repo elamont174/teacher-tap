@@ -30,79 +30,97 @@ def get_name_list():
     while name_str == False:
         name_str = input("Enter name here: ").strip()
         try:
-            validate_data(name_str, "name")
-            print("Data is valid")
-            name_str == True
-            continue
+            name_list = name_str.split(" ")
+            if len(name_list) == 2:
+                if len(name_list[0]) > 1 and len(name_list[1]) > 1:
+                    print("Data is valid")
+                    name_str == True
+                elif len(name_list[0]) <= 1:
+                    print("first name should be more than 1 letter")
+                    name_str = False
+                elif len(name_list[1]) <= 1:
+                    print("last name should be more than 1 letter")
+                    name_str = False
+            else:
+                print(f"""
+Invalid data: ensure you enter a first name and surname, separated by a space\n""")
+                name_str = False
         except ValueError as e:
-            print(f"Invalid data: {e}, ensure you enter a first name and surname, separated by a space\n")
-        return False  
+            print(f"Invalid data: {e}, ensure you enter a first name and surname, separated by a space\n") 
     return name_str
 
 def get_predicted_grade():
     print(f"""Please enter student's predicted grade""")
-    predicted_grade = False
-    while predicted_grade == False:
-        predicted_grade = int(input("Student's predicted grade: ").strip())
+    predicted_grade1 = False
+    while predicted_grade1 == False:
+        predicted_grade1 = (input("Student's predicted grade: ").strip())
         try:
-            if predicted_grade >= 1 <= 9: 
+            if int(predicted_grade1) >= 1 and int(predicted_grade1) <= 9 and len(predicted_grade1) == 1: 
                 print("Data is valid")
-            predicted_grade == True
-            continue
+                predicted_grade1 == True
+            else:
+                predicted_grade1 == False
+                print(f"""
+Invalid data: , enter an integer between 1-9\n""")
         except ValueError as e:
+            predicted_grade1 == False
             print(f"Invalid data: {e}, enter an integer between 1-9\n")
-        return False
-    return predicted_grade
+    return predicted_grade1
 
 def get_exam_score():
     print(f"""Please enter student's exam score""")
-    exam_score = False
-    while exam_score == False:
-        exam_score = int(input("Student's exam score out of 100: ").strip())
+    exam_score1 = False
+    while exam_score1 == False:
+        exam_score1 = input("Student's exam score: ").strip()
         try:
-            if exam_score >= 0 <= 100: 
+            if int(exam_score1) >= 0 and int(exam_score1) <= 100 and len(exam_score1) <= 3 and len(exam_score1) > 0: 
                 print("Data is valid")
-            exam_score == True
-            continue
+                exam_score1 == True
+            else:
+                exam_score1 == False
+                print("Invalid data: , enter an integer between 0-100")
         except ValueError as e:
+            exam_score1 == False
             print(f"Invalid data: {e}, enter an integer between 0-100\n")
-        return False
-    return exam_score
-
+    return exam_score1
 
 
 #Validates data as a string with 2 words, an integer between 1-9, an integer 
 #between 1-100
-def validate_data(values, type):
+# def validate_data(values, type):
 
-    """Ensures 'Student Name' has first and surname; 
-    Predicted Grade is between 1-9 as an integer; Exam mark is between 0-100 as 
-    an integer. Ensures three values added. 
-    Raises error if does not fit this format."""
+#     """Ensures 'Student Name' has first and surname; 
+#     Predicted Grade is between 1-9 as an integer; Exam mark is between 0-100 as 
+#     an integer. Ensures three values added. 
+#     Raises error if does not fit this format."""
 
 
-    if type == "name":
-        try:
-            name_list = values.split(" ")
-            if len(name_list) == 2:
-                pass
-            else:
-                raise ValueError(f"Ensure you enter a first name and surname, separated by a space.")
-        except ValueError as e:
-                print(f"Invalid data: {e}, please try again.\n")
-        return False
+    # if type == "name":
+    #     input_is_valid = False
+    #     while input_is_valid == False:
+    #         try:
+    #             name_list = values.split(" ")
+    #             if len(name_list) == 2:
+    #                 input_is_valid = True
+    #                 break
+    #             break
+    #                 # else:
+    #                 #     raise ValueError(f"Ensure you enter a first name and surname, separated by a space.")
+    #         except ValueError as e:
+    #                 print(f"Invalid data: {e}, please try again.\n")
+    #         # return False
     
-    if type == int:
-        try:
-            name_list = values.split(" ")
-            if len(name_list) == 2:
-                pass
-            else:
-                raise ValueError(f"Ensure you enter a first name and surname, separated by a space.")
-        except ValueError as e:
-                print(f"Invalid data: {e}, please try again.\n")
-        return False
-    return True   
+    # if type == int:
+    #     try:
+    #         name_list = values.split(" ")
+    #         if len(name_list) == 2:
+    #             pass
+    #         else:
+    #             raise ValueError(f"Ensure you enter a first name and surname, separated by a space.")
+    #     except ValueError as e:
+    #             print(f"Invalid data: {e}, please try again.\n")
+    #     return False
+    # return True   
 
 
 #Takes exam score and converts to an grade (integers)
@@ -219,7 +237,7 @@ def main():
     predicted_grade = get_predicted_grade()
     exam_score = get_exam_score()
     exam_grade = calculate_exam_grade(exam_score)
-    on_target = calculate_on_target(exam_grade, predicted_grade)
+    on_target = calculate_on_target(exam_grade, int(predicted_grade))
     intervention_strategy = generate_intervention_strategy(on_target)
     data = [(name_str), (int(predicted_grade)), (int(exam_score)), 
     (int(exam_grade)), (on_target), (intervention_strategy)]
