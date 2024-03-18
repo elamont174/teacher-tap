@@ -102,14 +102,6 @@ def validate_data(values, type):
         except ValueError as e:
                 print(f"Invalid data: {e}, please try again.\n")
         return False
-
-    """try:
-        if len(values) != 3:
-            raise ValueError(f"3 values required, you provided {len(values)}")
-    except ValueError as e:
-        print(f"Invalid data: {e}, please try again.\n")
-        return False"""
-
     return True   
 
 
@@ -184,13 +176,6 @@ def update_data_worksheet(data):
 
 
     print("Updating exam worksheet...\n")
-    #data = name_str + int(predicted_grade) + int(exam_score) + int(exam_grade) + on_target + intervention_strategy
-    #exam_grade = calculate_exam_grade()
-    #data.append(exam_grade)
-    #on_target = calculate_on_target()
-    #data.append(on_target)
-    #intervention_strategy = generate_intervention_strategy()
-    #data.append(intervention_strategy)
     exam_worksheet = SHEET.worksheet("datasheet")
     exam_worksheet.append_row(data)
     print("Exam data worksheet updated successfully")
@@ -204,14 +189,11 @@ def  update_positive_email_worksheet(name_str, exam_score, exam_grade, intervent
 
 
     if intervention_strategy == "Positive email":
-        exam_worksheet = SHEET.worksheet("positive-email")
-        name = name_str
-        exam_worksheet.append_row(
-            name,
-            f"""Well done to {name} for achieving {exam_score} marks in their 
-            recent Science exam! This is a grade {exam_grade} which is above 
-            their predicted target! Congratulations!"""
-        )
+        email_worksheet = SHEET.worksheet("positive-email")
+        name = str.split(name_str)
+        fname = name[0]
+        positive_data = [(name_str), (f"""Well done to {fname} for achieving {exam_score} marks in their recent Science exam! This is a grade {exam_grade} which is above their predicted target! Congratulations!""")]
+        email_worksheet.append_row(positive_data)
         print("Positive email worksheet updated successfully")
 
 
@@ -221,12 +203,10 @@ def update_parental_phonecall_worksheet(name_str, intervention_strategy):
 
     """ Updates the parental phonecall worksheet """
 
-
     if intervention_strategy == "Parental phonecall":
-        exam_worksheet = SHEET.worksheet("parent-call")
-        name = str.split(name_str)
-        fname = name[0]
-        exam_worksheet.append_row(fname)
+        call_worksheet = SHEET.worksheet("parent-call")
+        call_name = [(name_str)]
+        call_worksheet.append_row(call_name)
         print("Parental call worksheet updated successfully")
 
 def main():
