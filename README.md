@@ -37,6 +37,9 @@ The concept is that the teacher only has to enter a few simple values to the pro
 
 ## Deployment
 
+App was deployed to [Heroku](https://www.heroku.com/).
+1. A Heroku account was created.
+2. In GitPod (where the code was written), the command "pip3 freeze > requirements.txt" was put into the terminal. This created a list of requirements that the project needs to run.
 
 ## Future improvements
 Future improvements would include the ability to delete data that had been previously entered or update data if a student resat the exam. 

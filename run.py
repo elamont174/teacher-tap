@@ -28,7 +28,7 @@ def get_name_list():
     print(f"""Please enter student's first and surname:""")
     name_str = False
     while name_str == False:
-        name_str = input("Enter name here: ").strip()
+        name_str = input("Enter name here:\n").strip()
         try:
             name_list = name_str.split(" ")
             if len(name_list) == 2:
@@ -53,7 +53,7 @@ def get_predicted_grade():
     print(f"""Please enter student's predicted grade""")
     predicted_grade1 = False
     while predicted_grade1 == False:
-        predicted_grade1 = (input("Student's predicted grade: ").strip())
+        predicted_grade1 = (input("Student's predicted grade:\n").strip())
         try:
             if int(predicted_grade1) >= 1 and int(predicted_grade1) <= 9 and len(predicted_grade1) == 1: 
                 print("Data is valid")
@@ -71,7 +71,7 @@ def get_exam_score():
     print(f"""Please enter student's exam score""")
     exam_score1 = False
     while exam_score1 == False:
-        exam_score1 = input("Student's exam score: ").strip()
+        exam_score1 = input("Student's exam score:\n").strip()
         try:
             if int(exam_score1) >= 0 and int(exam_score1) <= 100 and len(exam_score1) <= 3 and len(exam_score1) > 0: 
                 print("Data is valid")
