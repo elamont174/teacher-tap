@@ -32,7 +32,7 @@ def get_name_list():
         try:
             validate_data(name_str, "name")
             print("Data is valid")
-            name_str = True
+            name_str == True
             continue
         except ValueError as e:
             print(f"Invalid data: {e}, ensure you enter a first name and surname, separated by a space\n")
@@ -47,14 +47,11 @@ def get_predicted_grade():
         try:
             if predicted_grade >= 1 <= 9: 
                 print("Data is valid")
-            predicted_grade = True
+            predicted_grade == True
             continue
         except ValueError as e:
             print(f"Invalid data: {e}, enter an integer between 1-9\n")
         return False
-        """if validate_data(predicted_grade_raw, number):
-            print("Data is valid")
-            break"""
     return predicted_grade
 
 def get_exam_score():
@@ -65,11 +62,11 @@ def get_exam_score():
         try:
             if exam_score >= 0 <= 100: 
                 print("Data is valid")
-            exam_score = True
+            exam_score == True
+            continue
         except ValueError as e:
             print(f"Invalid data: {e}, enter an integer between 0-100\n")
         return False
-        continue
     return exam_score
 
 
@@ -122,7 +119,6 @@ def calculate_exam_grade(exam_score):
     """Calculates the exam grade from the exam mark"""
 
     print("Calculating exam grade...\n")
-    #exam_score = some_data[2]
 
     if exam_score < 30:
         exam_grade = 3
@@ -170,11 +166,11 @@ def generate_intervention_strategy(on_target):
     intervention_strategy = ""
     if on_target == "Above":
         intervention_strategy = "Positive email"
-    if calculate_on_target == "On":
+    if on_target == "On":
         intervention_strategy = "Verbal praise"
-    if calculate_on_target == "Below":
+    if on_target == "Below":
         intervention_strategy = "Parental phonecall"
-
+    
     return intervention_strategy
 
 
@@ -183,7 +179,7 @@ def generate_intervention_strategy(on_target):
 #Adds list to spreadsheet
 def update_data_worksheet(data):
 
-    """ Concatenates entered and calculated data into a list and updates 
+    """ updates 
     exam data worksheet """
 
 
@@ -241,9 +237,7 @@ def main():
     print("Welcome to Teacher Tap!")
     name_str = get_name_list()
     predicted_grade = get_predicted_grade()
-    exam_score = int(get_exam_score())
-    #some_data = name_str + predicted_grade + exam_score
-    #calculate_exam_grade()
+    exam_score = get_exam_score()
     exam_grade = calculate_exam_grade(exam_score)
     on_target = calculate_on_target(exam_grade, predicted_grade)
     intervention_strategy = generate_intervention_strategy(on_target)
@@ -252,8 +246,7 @@ def main():
     update_data_worksheet(data)
     update_positive_email_worksheet(name_str, exam_score, exam_grade, intervention_strategy)
     update_parental_phonecall_worksheet(name_str, intervention_strategy)
-    #exam_data = [x for x in data]
-    #update_data_worksheet(exam_data)
+
 
 if __name__ == "__main__":
     main()
