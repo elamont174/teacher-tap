@@ -61,7 +61,7 @@ def get_predicted_grade():
         predicted_grade1 = input("Student's predicted grade:\n").strip()
         try:
             if predicted_grade1.isdigit() and int(predicted_grade1) >= 1 and int(predicted_grade1) <= 9 and len(predicted_grade1) == 1: 
-                    print("Data is valid")
+                    print("Data is valid\n")
                     predicted_grade1 == True
             else:
                 print(f"""
@@ -83,7 +83,7 @@ def get_exam_score():
         exam_score1 = input("Student's exam score:\n").strip()
         try:
             if exam_score1.isdigit() and int(exam_score1) >= 0 and int(exam_score1) <= 100 and len(exam_score1) <= 3 and len(exam_score1) >= 1: 
-                    print("Data is valid")
+                    print("Data is valid\n")
                     exam_score1 == True
             else:
                 print(f"""
