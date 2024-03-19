@@ -1,9 +1,9 @@
 # Teacher Tap
-Deployed link: [Teacher Tap](https://teacher-tap-0d3c391f8f6b.herokuapp.com/)
-[Screenshot of the running program "Teacher Tap"](assets/images/teacher-tap.png)
-Teacher Tap is designed for Secondary school teachers to input student data after sitting an exam. The user is prompted to input the student's name, predicted grade and exam score. The program will then calculate the grade the student got for the exam, whether the student is on target or not and will also generate an intervention strategy for the student. 
-If the student requires an email home, the programme will automatically generate a message that the teacher can copy and paste without having to type it out themselves. If students require a phonecall home, the programme will add their name to a list that the teacher can check off once they have made the relevant phonecalls.
-The concept is that the teacher has marked a set of exam papers and needs to know the exam grades the students get. If the students exam grade is above their predicted grade, their intervention strategy would be a Positive Email home. If the students exam grade is below their predicted grade, their intervention strategy would be a Parental Phonecall home. If the students exam grade is the same as their predicted grade, their intervention strategy would be Verbal Praise. The program would work this out for the teacher and collate all of the relevant information onto a spreadsheet. This would reduce their workload.
+- Deployed link: [Teacher Tap](https://teacher-tap-0d3c391f8f6b.herokuapp.com/)
+- [Screenshot of the running program "Teacher Tap"](assets/images/teacher-tap.png)
+- Teacher Tap is designed for Secondary school teachers to input student data after sitting an exam. The user is prompted to input the student's name, predicted grade and exam score. The program will then calculate the grade the student got for the exam, whether the student is on target or not and will also generate an intervention strategy for the student. 
+- If the student requires an email home, the programme will automatically generate a message that the teacher can copy and paste without having to type it out themselves. If students require a phonecall home, the programme will add their name to a list that the teacher can check off once they have made the relevant phonecalls.
+- The concept is that the teacher has marked a set of exam papers and needs to know the exam grades the students get. If the students exam grade is above their predicted grade, their intervention strategy would be a Positive Email home. If the students exam grade is below their predicted grade, their intervention strategy would be a Parental Phonecall home. If the students exam grade is the same as their predicted grade, their intervention strategy would be Verbal Praise. The program would work this out for the teacher and collate all of the relevant information onto a spreadsheet. This would reduce their workload.
 
 ## User Stories
 - As a first time user, I want the input system to be simple and easy to follow.
@@ -13,17 +13,17 @@ The concept is that the teacher has marked a set of exam papers and needs to kno
 - As a continued user, I want to have a quick method of working out intervention methods to help my students. 
 
 ## Features
-When the program runs, the user is greeted and invited to enter a student's name. If they do not enter a first and surname, separated by a space, which contains at least one letter, they will get an error message and be invited to re-enter the data.
+- When the program runs, the user is greeted and invited to enter a student's name. If they do not enter a first and surname, separated by a space, which contains at least one letter, they will get an error message and be invited to re-enter the data.
 [Screenshot of name entry and validation screen](assets/images/name-validation.png)
-When the correct data has been entered, the user will then be invited to enter the student's predicted grade. If the user did not enter an integer between 1-9, they will get an error message and be invited to re-enter the data.
+- When the correct data has been entered, the user will then be invited to enter the student's predicted grade. If the user did not enter an integer between 1-9, they will get an error message and be invited to re-enter the data.
 [Screenshot of predicted grade entry and validation screen](assets/images/predicted-validation.png)
-When the correct data has been entered, the user will then be invited to enter the student's exam score. If the user did not enter an integer between 0-100, they will get an error message and be invited to re-enter the data.
+- When the correct data has been entered, the user will then be invited to enter the student's exam score. If the user did not enter an integer between 0-100, they will get an error message and be invited to re-enter the data.
 [Screenshot of exam score entry and validation screen](assets/images/score_validation.png)
-Once the teacher has entered all of the data, the program will populate the spreadsheet with the entered data, the exam grade, whether the student is on target and their intervention strategy.
+- Once the teacher has entered all of the data, the program will populate the spreadsheet with the entered data, the exam grade, whether the student is on target and their intervention strategy.
 [Screenshot of spreadsheet: datasheet](assets/images/datasheet.png)
-A separate worksheet will also be populated with a message to be emailed to the parents of students who are above target.
+- A separate worksheet will also be populated with a message to be emailed to the parents of students who are above target.
 [Screenshot of spreadsheet: positive-email](assets/images/positive-email.png)
-Another worksheet will be populated with a list of students who the teacher needs to call home for.
+- Another worksheet will be populated with a list of students who the teacher needs to call home for.
 [Screenshot of spreadsheet: parent-call](assets/images/parent-call.png)
 
 ## Flowcharts
@@ -51,11 +51,11 @@ Another worksheet will be populated with a list of students who the teacher need
 - Once the program was working, a bug that required fixing was validation. No matter what the user typed, the program was proceeding as though the data was correct. I used Python Tutor to visualise the code and rewrote the relevant section of the while loop to fix this bug.
 
 ## Testing
-I constantly tested the program during the development process to ensure it was running.
+- I constantly tested the program during the development process to ensure it was running.
 
 ## Deployment
-Program was deployed to [Heroku](https://www.heroku.com/).
-The deployed link can be found [here](https://teacher-tap-0d3c391f8f6b.herokuapp.com/).
+- Program was deployed to [Heroku](https://www.heroku.com/).
+- The deployed link can be found [here](https://teacher-tap-0d3c391f8f6b.herokuapp.com/).
 
 1. In the workspace (in this case created on GitPod), the command "pip3 freeze > requirements.txt" is put into the terminal. This creates a list of requirements that the project needs to run in the 'requirements.txt' file.
 2. A [Heroku](https://www.heroku.com/) account needs to be created.
