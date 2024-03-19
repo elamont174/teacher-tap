@@ -1,7 +1,7 @@
 # Teacher Tap
 - Deployed link: [Teacher Tap](https://teacher-tap-0d3c391f8f6b.herokuapp.com/)
 - [Screenshot of the running program "Teacher Tap"](assets/images/teacher-tap.png)
-- Teacher Tap is designed for Secondary school teachers to input student data after sitting an exam. The user is prompted to input the student's name, predicted grade and exam score. The program will then calculate the grade the student got for the exam, whether the student is on target or not and will also generate an intervention strategy for the student. 
+- Teacher Tap is designed for Secondary school teachers in England to input student data after sitting an exam. The user is prompted to input the student's name, predicted grade and exam score. The program will then calculate the grade the student got for the exam, whether the student is on target or not and will also generate an intervention strategy for the student. 
 - If the student requires an email home, the programme will automatically generate a message that the teacher can copy and paste without having to type it out themselves. If students require a phonecall home, the programme will add their name to a list that the teacher can check off once they have made the relevant phonecalls.
 - The concept is that the teacher has marked a set of exam papers and needs to know the exam grades the students get. If the students exam grade is above their predicted grade, their intervention strategy would be a Positive Email home. If the students exam grade is below their predicted grade, their intervention strategy would be a Parental Phonecall home. If the students exam grade is the same as their predicted grade, their intervention strategy would be Verbal Praise. The program would work this out for the teacher and collate all of the relevant information onto a spreadsheet. This would reduce their workload.
 
@@ -71,11 +71,11 @@
 8. Add another Config Var with KEY = PORT and VALUE = 8000.
 9. Scroll down further to 'Buildpacks'. Click 'Add Buildpack'.
 [Screenshot of Buildpacks area](assets/images/deploy4.png)
-10. Click the python buildpack and the click 'Add buildpack'. Click the nodejs buildpack and the click 'Add buildpack'.
+10. Click the python buildpack and then click 'Add buildpack'. Click the nodejs buildpack and then click 'Add buildpack'.
 11. Ensure that the buildpacks are in the correct order: Python first then Node.js. You can drag them if they are in the wrong order.
 12. Scroll back to the navigation bar at the top of the page. Click Deploy.
 [Screenshot of navigation bar](assets/images/deploy2.png)
-13. Next to 'Deployment method', select 'GitHub'. Connect to the appropriate repro on GitHub by typing in the name. Click 'search'. Click 'connect'.
+13. Next to 'Deployment method', select 'GitHub'. Connect to the appropriate repository on GitHub by typing in the name. Click 'search'. Click 'connect'.
 [Screenshot of Deployment method area](assets/images/deploy5.png)
 14. Scroll down to 'Automatic deploys'. Select 'Enable Automatic Deploys'. Scroll down to 'Manual deploy'. Click 'Deploy Branch'.
 [Screenshot of Deployment method area](assets/images/deploy6.png)
