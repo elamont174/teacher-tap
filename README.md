@@ -52,6 +52,7 @@
 
 ## Testing
 - I constantly tested the program during the development process to ensure it was running.
+- I used [PEP8 Python Checker](https://www.pythonchecker.com/) to check my code. It came back with 68% - Good. [Screenshot of PEP8 score](assets/images/pep8.png)
 
 ## Deployment
 - Program was deployed to [Heroku](https://www.heroku.com/).
