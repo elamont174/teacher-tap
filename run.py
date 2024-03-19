@@ -18,10 +18,10 @@ SHEET = GSPREAD_CLIENT.open('teacher-tap')
 
 #Enter name (First and Surname)
 #Enter student's predicted grade (must be an integer 1-9)
-#Enter student's exam score (must be an integer 1-100)
+#Enter student's exam score (must be an integer 0-100)
 def get_name_list():
 
-    """ Get exam result data from user.Run a while loop to collect valid 
+    """ Get exam result data from user: student name. Run a while loop to collect valid 
     data from the user via the terminal. Loop will continually 
     request data until it is valid."""
     
@@ -50,77 +50,48 @@ Invalid data: ensure you enter a first name and surname, separated by a space\n"
     return name_str
 
 def get_predicted_grade():
+    
+    """ Get exam result data from user: predicted grade. Run a while loop to collect valid 
+    data from the user via the terminal. Loop will continually 
+    request data until it is valid."""
+    
     print(f"""Please enter student's predicted grade""")
     predicted_grade1 = False
     while predicted_grade1 == False:
-        predicted_grade1 = (input("Student's predicted grade:\n").strip())
+        predicted_grade1 = input("Student's predicted grade:\n").strip()
         try:
-            if int(predicted_grade1) >= 1 and int(predicted_grade1) <= 9 and len(predicted_grade1) == 1: 
-                print("Data is valid")
-                predicted_grade1 == True
+            if predicted_grade1.isdigit() and int(predicted_grade1) >= 1 and int(predicted_grade1) <= 9 and len(predicted_grade1) == 1: 
+                    print("Data is valid")
+                    predicted_grade1 == True
             else:
-                predicted_grade1 == False
                 print(f"""
-Invalid data: , enter an integer between 1-9\n""")
+Invalid data: enter an integer between 1-9\n""")
+                predicted_grade1 = False
         except ValueError as e:
-            predicted_grade1 == False
-            print(f"Invalid data: {e}, enter an integer between 1-9\n")
+            print(f"Invalid data: enter an integer between 1-9\n")
     return predicted_grade1
 
 def get_exam_score():
+    
+    """ Get exam result data from user.Run a while loop to collect valid 
+    data from the user via the terminal. Loop will continually 
+    request data until it is valid."""
+    
     print(f"""Please enter student's exam score""")
     exam_score1 = False
     while exam_score1 == False:
         exam_score1 = input("Student's exam score:\n").strip()
         try:
-            if int(exam_score1) >= 0 and int(exam_score1) <= 100 and len(exam_score1) <= 3 and len(exam_score1) > 0: 
-                print("Data is valid")
-                exam_score1 == True
+            if exam_score1.isdigit() and int(exam_score1) >= 0 and int(exam_score1) <= 100 and len(exam_score1) <= 3 and len(exam_score1) >= 1: 
+                    print("Data is valid")
+                    exam_score1 == True
             else:
-                exam_score1 == False
-                print("Invalid data: , enter an integer between 0-100")
+                print(f"""
+Invalid data: enter an integer between 0-100\n""")
+                exam_score1 = False
         except ValueError as e:
-            exam_score1 == False
-            print(f"Invalid data: {e}, enter an integer between 0-100\n")
+            print(f"Invalid data: enter an integer between 0-100\n")
     return exam_score1
-
-
-#Validates data as a string with 2 words, an integer between 1-9, an integer 
-#between 1-100
-# def validate_data(values, type):
-
-#     """Ensures 'Student Name' has first and surname; 
-#     Predicted Grade is between 1-9 as an integer; Exam mark is between 0-100 as 
-#     an integer. Ensures three values added. 
-#     Raises error if does not fit this format."""
-
-
-    # if type == "name":
-    #     input_is_valid = False
-    #     while input_is_valid == False:
-    #         try:
-    #             name_list = values.split(" ")
-    #             if len(name_list) == 2:
-    #                 input_is_valid = True
-    #                 break
-    #             break
-    #                 # else:
-    #                 #     raise ValueError(f"Ensure you enter a first name and surname, separated by a space.")
-    #         except ValueError as e:
-    #                 print(f"Invalid data: {e}, please try again.\n")
-    #         # return False
-    
-    # if type == int:
-    #     try:
-    #         name_list = values.split(" ")
-    #         if len(name_list) == 2:
-    #             pass
-    #         else:
-    #             raise ValueError(f"Ensure you enter a first name and surname, separated by a space.")
-    #     except ValueError as e:
-    #             print(f"Invalid data: {e}, please try again.\n")
-    #     return False
-    # return True   
 
 
 #Takes exam score and converts to an grade (integers)
@@ -235,7 +206,7 @@ def main():
     print("Welcome to Teacher Tap!")
     name_str = get_name_list()
     predicted_grade = get_predicted_grade()
-    exam_score = get_exam_score()
+    exam_score = int(get_exam_score())
     exam_grade = calculate_exam_grade(exam_score)
     on_target = calculate_on_target(exam_grade, int(predicted_grade))
     intervention_strategy = generate_intervention_strategy(on_target)

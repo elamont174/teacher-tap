@@ -1,5 +1,5 @@
 # Teacher Tap
-Teacher Tap is designed for Secondary school teachers to input student data after sitting an exam. The user is prompted to input the student's name, predicted grade and exam score. The programme will then calculate the grade the student got for the exam, whether the student is on target or not and will also generate an intervention strategy for the student. 
+Teacher Tap is designed for Secondary school teachers to input student data after sitting an exam. The user is prompted to input the student's name, predicted grade and exam score. The program will then calculate the grade the student got for the exam, whether the student is on target or not and will also generate an intervention strategy for the student. 
 If the student requires an email home, the programme will automatically generate a message that the teacher can copy and paste without having to type it out themselves. If students require a phonecall home, the programme will add their name to a list that the teacher can check off once they have made the relevant phonecalls.
 
 The concept is that the teacher only has to enter a few simple values to the programme and a lot of their workload is then carried out for them. 
@@ -8,6 +8,8 @@ The concept is that the teacher only has to enter a few simple values to the pro
 - As a first time user, I want the input system to be simple and easy to follow.
 - As a first time user, I want to be corrected and given feedback if I make a mistake, as it is an unfamiliar system.
 - As a continued user, I want to reduce my workload and only need to enter a few values. 
+- As a continued user, I want to display my students details on a spreadsheet.
+- As a continued user, I want to have a quick method of working out intervention methods to help my students. 
 
 ## Features
 
@@ -28,12 +30,15 @@ The concept is that the teacher only has to enter a few simple values to the pro
 ### Other tools
 - [Google sheets](https://www.google.co.uk/sheets/about/)
 - [GitHub](https://github.com/)
+- [GitPod](https://gitpod.io/)
+- [Heroku](https://www.heroku.com/)
 
 ## Bugs
-
+- Initially, I planned a very complicated method of putting data into the spreadsheet, taking data back out of the spreadsheet for calculations then putting data back into the spreadsheet. I then realised that it would be much simpler to just do the calculations and then add all of the data to the spreadsheet at once. This meant that I had to completely restructure the order of the functions that I had written to get the appropriate results. 
+- Once the program was working, a bug that required fixing was validation. No matter what the user typed, the program was proceeding as though the data was correct. I used Python Tutor to visualise the code and rewrote the relevant section of the while loop to fix this bug.
 
 ## Testing
-
+I constantly tested the program during the development process.
 
 ## Deployment
 
@@ -61,8 +66,6 @@ App was deployed to [Heroku](https://www.heroku.com/).
 14. Scroll down to 'Automatic deploys'. Select 'Enable Automatic Deploys'. Scroll down to 'Manual deploy'. Click 'Deploy Branch'.
 [Screenshot of Deployment method area](assets/images/deploy6.png)
 15. Wait for app to be deployed. 
-
-
 
 ## Future improvements
 Future improvements would include the ability to delete data that had been previously entered or update data if a student resat the exam. 
